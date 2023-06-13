@@ -23,14 +23,16 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'logout')]
     public function logout()
     {
         // nothing to put inside because symfony do that 
     }
 
+    #[Route('/registration', name: 'registration')]
     public function registration()
     {
-        
+
 
     }
 
