@@ -8,13 +8,14 @@ use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Carbon\Carbon;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-
+        
         for($i = 0; $i <= 49; $i++)
         {
             $program = new Program();
@@ -22,7 +23,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setName($faker->lastName());
             $program->setDescription($faker->word());
             $program->setCreatedAt(new \DateTimeImmutable("NOW"));
-            $program->setJourneyOfReservation($faker->dateTime("Y/m/d"));
+            $program->setJourneyOfReservation(new \DateTime("NOW"));
             $program->setUserId($this->getReference("user_" . rand(0, UserFixtures::NB_USER - 1)));
             $manager->persist($program);
 

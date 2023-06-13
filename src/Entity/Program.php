@@ -6,6 +6,7 @@ use App\Entity\Band;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProgramRepository;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Date;
@@ -22,7 +23,7 @@ class Program
     private ?string $city = null;
 
     #[ORM\Column]
-    private ?Date $journey_of_reservation = null;
+    private ?DateTime $journey_of_reservation = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -62,12 +63,12 @@ class Program
         return $this;
     }
 
-    public function getJourneyOfReservation(): ?Date
+    public function getJourneyOfReservation(): ?DateTime
     {
         return $this->journey_of_reservation;
     }
 
-    public function setJourneyOfReservation(Date $journey_of_reservation): static
+    public function setJourneyOfReservation(DateTime $journey_of_reservation): static
     {
         $this->journey_of_reservation = $journey_of_reservation;
 
