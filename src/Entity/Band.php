@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\BandRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,16 +26,9 @@ class Band
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'program_id')]
-    private Collection $programs;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    public function __construct()
-    {
-        $this->programs = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -92,39 +83,12 @@ class Band
         return $this;
     }
 
-    /**
-     * @return Collection<int, Program>
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    public function addProgram(Program $program): static
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->addProgramId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgram(Program $program): static
-    {
-        if ($this->programs->removeElement($program)) {
-            $program->removeProgramId($this);
-        }
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(User $user): static
     {
         $this->user = $user;
 

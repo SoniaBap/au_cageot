@@ -2,14 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Band;
+use App\Repository\ProgramRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ProgramRepository;
-use DateTime;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Date;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
 class Program
@@ -22,9 +17,6 @@ class Program
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\Column]
-    private ?DateTime $journey_of_reservation = null;
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -34,17 +26,16 @@ class Program
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'programs')]
-    private Collection $program;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $journey_of_reservation = null;
 
-    #[ORM\ManyToOne(inversedBy: 'programs')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user= null;
+    private ?User $user = null;
 
-    public function __construct()
-    {
-        $this->program = new ArrayCollection();
-    }
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Band $band = null;
 
     public function getId(): ?int
     {
@@ -62,20 +53,6 @@ class Program
 
         return $this;
     }
-
-    public function getJourneyOfReservation(): ?DateTime
-    {
-        return $this->journey_of_reservation;
-    }
-
-    public function setJourneyOfReservation(DateTime $journey_of_reservation): static
-    {
-        $this->journey_of_reservation = $journey_of_reservation;
-
-        return $this;
-    }
-
- 
 
     public function getName(): ?string
     {
@@ -113,38 +90,38 @@ class Program
         return $this;
     }
 
-    /**
-     * @return Collection<int, Band>
-     */
-    public function getProgramId(): Collection
+    public function getJourneyOfReservation(): ?\DateTimeInterface
     {
-        return $this->program;
+        return $this->journey_of_reservation;
     }
 
-    public function addProgramId(Band $programId): static
+    public function setJourneyOfReservation(\DateTimeInterface $journey_of_reservation): static
     {
-        if (!$this->program->contains($programId)) {
-            $this->program->add($programId);
-        }
+        $this->journey_of_reservation = $journey_of_reservation;
 
         return $this;
     }
 
-    public function removeProgramId(Band $programId): static
-    {
-        $this->program->removeElement($programId);
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBand(): ?Band
+    {
+        return $this->band;
+    }
+
+    public function setBand(?Band $band): static
+    {
+        $this->band = $band;
 
         return $this;
     }

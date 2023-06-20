@@ -44,12 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nickname = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Program::class, orphanRemoval: true)]
-    private Collection $programs;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Program::class, orphanRemoval: true)]
+    private Collection $program;
 
     public function __construct()
     {
-        $this->programs = new ArrayCollection();
+        $this->program = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,14 +176,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPrograms(): Collection
     {
-        return $this->programs;
+        return $this->program;
     }
 
     public function addProgram(Program $program): static
     {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->setUserId($this);
+        if (!$this->program->contains($program)) {
+            $this->program->add($program);
+            $program->setUser($this);
         }
 
         return $this;
@@ -191,13 +191,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeProgram(Program $program): static
     {
-        if ($this->programs->removeElement($program)) {
+        if ($this->program->removeElement($program)) {
             // set the owning side to null (unless already changed)
-            if ($program->getUserId() === $this) {
-                $program->setUserId(null);
+            if ($program->getUser() === $this) {
+                $program->setUser(null);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Program>
+     */
+    public function getProgram(): Collection
+    {
+        return $this->program;
     }
 }

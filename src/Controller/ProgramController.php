@@ -28,7 +28,7 @@ class ProgramController extends AbstractController
         $program = new Program();
         $user = $this->getUser();
         $band = $bandRepository->findOneById(['band' => $band->getId()]);
-        $program->setUserId($user);
+     //   $program->setUserId($user);
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())

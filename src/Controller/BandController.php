@@ -25,7 +25,7 @@ class BandController extends AbstractController
     {
         $band = new Band();
         $user = $this->getUser();
-        $band->setUserId($user);
+       // $band->setUserId($user);
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
            if($form->isSubmitted() && $form->isValid())
