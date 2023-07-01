@@ -46,7 +46,7 @@ class ProgramController extends AbstractController
     public function edit(Program $program, Request $request, ProgramRepository $programRepository): Response
     {
         $user = $this->getUser();
-        $program->setUserId($user);
+        $program->setUser($user);
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())

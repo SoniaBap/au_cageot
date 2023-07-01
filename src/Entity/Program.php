@@ -6,6 +6,7 @@ use App\Repository\ProgramRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
 class Program
 {
@@ -14,19 +15,41 @@ class Program
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: 'Ville obligatoire')]
+    // #[Assert\Length(max: 255, min: 3,
+    // maxMessage: "La ville saisie {{ value }} n'est pas valide, elle ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "La ville saisie {{ value }} n'est pas valide, elle ne doit pas être inférieure à {{ limit }} caractères"
+    // )]
     private ?string $city = null;
 
+
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: 'Nom du groupe obligatoire')]
+    // #[Assert\Length(max: 255, min: 3,
+    // maxMessage: "Le nom du groupe saisi {{ value }} n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "Le nom du groupe saisi {{ value }} n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+    // )]
     private ?string $name = null;
 
+
     #[ORM\Column(type: Types::TEXT)]
+    // #[Assert\NotBlank(message: 'Description obligatoire')]
     private ?string $description = null;
 
+
     #[ORM\Column]
+    // #[Assert\NotBlank(message: 'Date obligatoire')]
+
     private ?\DateTimeImmutable $created_at = null;
 
+
+
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    // #[Assert\NotBlank(message: 'Date de réservation obligatoire')]
+
     private ?\DateTimeInterface $journey_of_reservation = null;
 
     #[ORM\ManyToOne]

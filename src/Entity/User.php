@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\EntityListener\UserListener;
 use App\Repository\UserRepository;
+use App\EntityListener\UserListener;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity("email")]
@@ -19,10 +20,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
+    
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+  //  #[Assert\NotBlank(message: 'Email obligatoire')]
+   // #[Assert\Email(message: "Votre email {{ value }} n'est pas valide.")]
     private ?string $email = null;
+
 
     #[ORM\Column]
     private array $roles = [];
@@ -31,18 +37,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    // #[Assert\NotBlank(message: 'Mot de passe obligatoire')]
+    // #[UserPassword(message: "Votre mot de passe n'est pas valide.")]
     private ?string $password = "password";
+
 
     private ?string $plainPassword = null;
 
+
+
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: 'Prénom obligatoire')]
+    // #[Assert\Length(min: 3, max: 255,
+    // maxMessage: "Le prénom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "Le prénom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+    // )]
     private ?string $firstname = null;
 
+
+
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: 'Nom obligatoire')]
+    // #[Assert\Length(min: 3 , max: 255, 
+    // maxMessage: "Le nom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+    // )]
     private ?string $lastname = null;
 
+
     #[ORM\Column(length: 255, nullable: true)]
+    // #[Assert\Length(min: 3 , max: 255,
+    // maxMessage: "Le pseudo saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+// )]
     private ?string $nickname = null;
+
+    
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Program::class, orphanRemoval: true)]
     private Collection $program;
@@ -113,7 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }

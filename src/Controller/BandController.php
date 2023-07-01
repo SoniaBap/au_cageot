@@ -43,7 +43,7 @@ class BandController extends AbstractController
     public function edit(Band $band, Request $request, BandRepository $bandRepository): Response
     {
         $user = $this->getUser();
-        $band->setUserId($user);
+        $band->setUser($user);
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
           if($form->isSubmitted() && $form->isValid())
