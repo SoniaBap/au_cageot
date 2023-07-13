@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Band;
+use App\Entity\User;
+use App\Form\BandType;
+use App\Form\VichType;
 use App\Repository\BandRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +27,16 @@ class BandController extends AbstractController
     public function new(Request $request, BandRepository $bandRepository): Response
     {
         $band = new Band();
-        $user = $this->getUser();
-       // $band->setUserId($user);
+        //$user = $this->getUser();
+        //$band->setUser($user);
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
-           if($form->isSubmitted() && $form->isValid())
+        //dd($form->getData());
+
+           if($form->isSubmitted())
            {
+            //dd($form->getData());
+
               $form->getData();
               $bandRepository->save($band, true);
                return $this->redirectToRoute('app_band_index');    

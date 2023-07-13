@@ -3,6 +3,12 @@
 {% block title %}Hello BandController!{% endblock %}
 
 {% block body %}
-{{ start(form)}}
-{{ form.name }}
+{# {{ dump('moncul')}} #}
+{{ form_start(form) }}
+{{ form_widget(form.name) }}
+{{ form_widget(form.musicalStyle) }}
+{{ form_widget(form.pictureFile) }}
+{{ form_widget(form.description) }}
+{{ form_widget(form.submit) }}
+{{ form_end(form) }}
 {% endblock %}

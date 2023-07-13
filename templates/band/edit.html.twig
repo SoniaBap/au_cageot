@@ -3,4 +3,11 @@
 {% block title %}Hello BandController!{% endblock %}
 
 {% block body %}
+{{ form_start(form) }}
+{{ form_row(form.name) }}
+{{ form_row(form.musical.style) }}
+{{ form_row(form.picture) }}
+{{ form_row(form.description) }}
+{{ form_end(form) }}
+
 {% endblock %}
