@@ -26,7 +26,7 @@ class BandController extends AbstractController
     #[Route('/new', name: 'new')]
     public function new(Request $request, BandRepository $bandRepository): Response
     {
-        $band = new Band();
+        $band = new Band(); 
         //$user = $this->getUser();
         //$band->setUser($user);
         $form = $this->createForm(BandType::class, $band);
