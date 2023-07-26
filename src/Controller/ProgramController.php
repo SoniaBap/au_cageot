@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Band;
 use App\Entity\Program;
+use App\Form\ProgramType;
 use App\Repository\BandRepository;
 use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,13 +23,15 @@ class ProgramController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/new', name: 'new')]
     public function new(Request $request, ProgramRepository $programRepository, BandRepository $bandRepository, Band $band): Response
     {
         $program = new Program();
         $user = $this->getUser();
-        $band = $bandRepository->findOneById(['band' => $band->getId()]);
-     //   $program->setUserId($user);
+        $program->setUser($user);
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
@@ -61,7 +64,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('delete/{id}', name: 'delete')]
-    public function delete( Program $program, ProgramRepository $programRepository)
+    public function delete(Program $program, ProgramRepository $programRepository)
     {
         $programRepository->remove($program, true);
         return $this->redirectToRoute('app_program_delete');

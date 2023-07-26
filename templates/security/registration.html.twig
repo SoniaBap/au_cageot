@@ -3,6 +3,8 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+ {{ include ('partials/_navbar.html.twig')}}
+
 {{ form_start(form) }}
 {{ form_row(form.email) }}
 {{ form_row(form.plainPassword) }}

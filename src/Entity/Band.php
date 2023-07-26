@@ -11,11 +11,9 @@ use App\Repository\BandRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BandRepository::class)]
-#[Vich\Uploadable] 
 
 class Band
 {
@@ -26,11 +24,11 @@ class Band
 
     
     #[ORM\Column(length:255)]
-    #[Assert\NotBlank(message: 'Nom du groupe obligatoire')]
-    #[Assert\Length(min: 3, max: 255,
-    maxMessage: "Le nom du groupe saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
-    minMessage: "Le nom du groupe saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
-    )]
+    // #[Assert\NotBlank(message: 'Nom du groupe obligatoire')]
+    // #[Assert\Length(min: 3, max: 255,
+    // maxMessage: "Le nom du groupe saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+    // minMessage: "Le nom du groupe saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+    // )]
     private ?string $name = null;
 
 
@@ -45,19 +43,14 @@ class Band
 
 
     #[ORM\Column(length:255)]
-    #[Assert\NotBLank(message: 'Photo du groupe obligatoire')]
-    #[Assert\Image(
-        minWidth: 200,
-        maxWidth: 400,
-        minHeight: 200,
-        maxHeight: 400,
-    )]
-    private ?string $picture = null;
-
-
-    #[Vich\UploadableField(mapping: 'band_picture', fileNameProperty: 'picture')]
-    private ?File $pictureFile = null;
-
+    // #[Assert\NotBlank(message: 'Photo du groupe obligatoire')]
+    // #[Assert\Image(
+    //     minWidth: 200,
+    //     maxWidth: 400,
+    //     minHeight: 200,
+    //     maxHeight: 400,
+    // )]
+    private ?string $pictureName = null;
 
 
     #[ORM\Column(type: Types::TEXT)]
@@ -71,8 +64,6 @@ class Band
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DatetimeInterface $updatedAt = null;
     
 
     #[ORM\OneToMany(mappedBy: "program", targetEntity: Program::class)]
@@ -125,22 +116,6 @@ class Band
         return $this;
     }
 
-    public function getPictureFile(): ?File
-    {
-        return $this->pictureFile;
-    }
-
-    public function setPictureFile(?File $pictureFile = null): void
-    {
-        $this->pictureFile = $pictureFile;
-
-        if(null !== $pictureFile)
-        {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new DateTimeImmutable();
-        }
-    }  
 
     public function getDescription(): ?string
     {
@@ -166,17 +141,6 @@ class Band
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Program>
@@ -185,6 +149,8 @@ class Band
     {
         return $this->programs;
     }
+
+    
 
     public function addProgram(Program $programs): self
     {
@@ -201,8 +167,8 @@ class Band
     {
         if ($this->programs->removeElement($programs)) {
             // set the owning side to null (unless already changed)
-            if ($programs->getProgram() === $this) {
-                $programs->setUser(null);
+            if ($programs->getBand() === $this) {
+                $programs->setBand(null);
             }
         }
 

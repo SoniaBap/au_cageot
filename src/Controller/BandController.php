@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Band;
-use App\Entity\User;
 use App\Form\BandType;
-use App\Form\VichType;
 use App\Repository\BandRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/band', name: 'app_band_')]
@@ -32,19 +31,57 @@ class BandController extends AbstractController
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
         //dd($form->getData());
+       // echo('coucou');
+              if($form->isSubmitted() && $form->isValid())
+              {
+                $picture = $form['picture']->getData();
 
-           if($form->isSubmitted())
-           {
-            //dd($form->getData());
+                // echo('coucou');
+                  $form->getData();
+                 // $image = $request->files->get('picture');
+                // $image = $band->getPicture();
+              //  echo ($image);
+                // echo('submitted');
+              // Vérifiez si un fichier a été téléchargé
+                 if  ($picture instanceof UploadedFile) 
+                 {
+                    if($picture == null) echo("null");
+                    // else echo "pas null";
+                 // $uploadsDirectory = $this->getParameter('uploads/photos');
+                 $newFileName = 'Tadaronne.jpg';
+                //    echo($newFileName) ;
+                  // Déplacez le fichier vers le répertoire de stockage
+                  
+                  $picture->move(
+                  'uploads/photos',
+                  'photos.jpg'
+                  );    
+                  $band->setPicture($newFileName);
 
-              $form->getData();
-              $bandRepository->save($band, true);
-               return $this->redirectToRoute('app_band_index');    
-           }
-        return $this->render('band/new.html.twig',[
+                }
+
+
+
+                    // else echo('pasupload');
+               //    $bandRepository->save($band, true);
+
+                   
+            //   return $this->redirectToRoute('app_band_index');    
+                 }
+
+                //  else {
+
+                //     echo("caca");
+                //  }
+                
+
+                 
+              return $this->render('band/new.html.twig',[
               'form' => $form->createView()
-        ]);
-    }
+
+                 ]);
+            }
+            
 
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(Band $band, Request $request, BandRepository $bandRepository): Response

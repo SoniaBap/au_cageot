@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
+{{ include ('partials/_navbar.html.twig')}}
 
 {% block title %}Hello ProgramController!{% endblock %}
 
 {% block body %}
+{{ include ('partials/_navbar.html.twig')}}
+
+
+
+{{ form_start(form) }}
+{{ form_row(form.city) }}
+{{ form_row(form.name) }}
+{{ form_row(form.description) }}
+<div id="datepicker">
+   {{ form_row(form.createdAt) }}
+</div>
+{{ form_row(form.journeyOfReservation) }}
+{{ form_row(form.band) }}
+{{ form_row(form.submit) }}
+{{ form_end(form) }}
+
 {% endblock %}

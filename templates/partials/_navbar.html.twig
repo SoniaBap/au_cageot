@@ -1,21 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="{{ asset('build/images/logo.png') }}" alt="Logo"  width="50" height="50">
+</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse titles_navbar row" id="navbarNav">
     <ul class="navbar-nav justify-content-around">
       <li class="nav-item active ">
-        <a class="nav-link" href="#">PRESENTATION <span class="sr-only"></span></a>
+        <a class="nav-link" href="#"> PRESENTATION <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="{{ path ('app_program_index') }}">PROGRAMMATION</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ path ('app_band_index') }}">GROUPES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">USER</a>
+        <a class="nav-link" href="{{ path ('app_security_login') }}">USER</a>
+      </li>
       </li>
     </ul>
+</div>
   </div>
+</div>
 </nav>

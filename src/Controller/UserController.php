@@ -6,7 +6,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
+use App\Repository\BandRepository;
 use App\Repository\UserRepository;
+use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +20,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/user', name: 'app_user_')]
 class UserController extends AbstractController
 {
+
+    #[Route('/show/{id}', name:'show')]
+    public function show(User $user, ProgramRepository $programRepository, BandRepository $bandRepository): Response
+    {
+
+        return $this->render('user/show.html.twig', [
+            'user' => $user, 
+            'programs' => $programRepository->findBy(['user' => $user]),
+            'bands' => $bandRepository->findBy(['user' => $user])
+        ]);
+    }
+
+    
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher): Response
     {

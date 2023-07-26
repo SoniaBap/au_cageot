@@ -18,6 +18,7 @@ class UserPasswordType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                
             ])
 
             ->add('newPassword', RepeatedType::class, [

@@ -2,12 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Band;
 use App\Entity\Program;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProgramType extends AbstractType
 {
@@ -20,7 +23,7 @@ class ProgramType extends AbstractType
                 ]
             ])
 
-            ->add('journey_of_reservation', Textype::class,[
+            ->add('journey_of_reservation', TextType::class,[
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -39,18 +42,26 @@ class ProgramType extends AbstractType
             ])
 
             ->add('created_at', DateType::class,[
-                 'attr' => [
+                'attr' => [
                     'class' => 'form-control'
                  ]  
             ])
 
-            ->add('program', TextType::class,[
-                 'attr' => [
-                    'class' => 'form-control'
-                 ]
-            ])
+            ->add('band', EntityType::class,[
+                 'class' => Band::class,
+                //  'attr' => [
+                //     'class' => 'form-control'
+                //  ]
+                 ])
 
-            ->add('submit', Submit::class,[
+        //     ->add('user', EntityType::class,[
+        //          'type' => User::class,
+        //          'attr' => [
+        //             'class' => 'form-control'
+        //         ]
+        //    ])
+
+            ->add('submit', SubmitType::class,[
                  'attr' => [
                     'class' => 'btn btn-primary'
                  ]
@@ -61,6 +72,7 @@ class ProgramType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Program::class,
+            
         ]);
     }
 }

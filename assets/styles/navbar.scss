@@ -1,5 +1,22 @@
-
 //.nav li{
 //margin:0px;
 //width:100%;
  //       }
+
+ 
+ .nav-link{
+    color:rgb(255, 255, 255)
+}
+
+.navbar-brand{
+    
+    background-image: url("/assets/images/logo.png");
+}
+
+
+.active {
+    background-color: grey;
+    color: #ffffff; 
+    font-family: 'Irish Grover', cursive;
+
+}
