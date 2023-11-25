@@ -46,13 +46,14 @@ class ProgramType extends AbstractType
                     'class' => 'form-control'
                  ]  
             ])
-
+/*
             ->add('band', EntityType::class,[
                  'class' => Band::class,
                 //  'attr' => [
                 //     'class' => 'form-control'
                 //  ]
                  ])
+                 */
 
         //     ->add('user', EntityType::class,[
         //          'type' => User::class,

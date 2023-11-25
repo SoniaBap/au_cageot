@@ -11,7 +11,7 @@ body
    background-repeat: no-repeat;
    background-size: cover;
    overflow: hidden;
-   max-width: 100%;
+   width: 100%;
    //max-height: 200%;
    height: 900px;
 }
@@ -40,4 +40,28 @@ body
 
    margin-top: 20% ;
    
+ }
+
+ .caca {
+
+  justify-content: center;
+ }
+
+ form {
+  justify-content: center;
+
+ }
+
+ .mb-3 {
+
+  color: aquamarine;
+  justify-content: center;
+ }
+
+ #imput-band{
+  justify-content: center;
+  height: 50px;
+  width: 300px;
+  font-size: 3.5em;
+
  }

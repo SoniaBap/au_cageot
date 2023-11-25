@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello BandController!{% endblock %}
+{# this tag only applies to the forms defined in this template #}
 
 {% block body %}
 {{ include ('partials/_navbar.html.twig')}}
 
+<div class="caca">
 {{ form_start(form) }}
-{{ form_widget(form.name) }}
-{{ form_widget(form.musicalStyle) }}
-{{ form_widget(form.picture) }}
-{{ form_widget(form.description) }}
-{{ form_widget(form.submit) }}
+{{ form_row(form.name) }}
+{{ form_row(form.musicalStyle) }}
+{{ form_row(form.picture) }}
+{{ form_row(form.description) }}
+{{ form_row(form.submit) }}
 {{ form_end(form) }}
+</div>
 {% endblock %}

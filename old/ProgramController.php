@@ -27,20 +27,19 @@ class ProgramController extends AbstractController
 
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request): Response
+    public function new(Request $request, ProgramRepository $programRepository, BandRepository $bandRepository, Band $band): Response
     {
         $program = new Program();
         $user = $this->getUser();
         $program->setUser($user);
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
-        // if($form->isSubmitted() && $form->isValid())
-        // {
-        //     $form->getData();
-        //     $programRepository->save($program, true);
-        //     return $this->redirectToRoute('app_program_index');
-        // }
-
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $form->getData();
+            $programRepository->save($program, true);
+            return $this->redirectToRoute('app_program_index');
+        }
         return $this->render('program/new.html.twig', [
             'form' => $form->createView(),
           ]);

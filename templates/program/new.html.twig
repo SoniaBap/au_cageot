@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-{{ include ('partials/_navbar.html.twig')}}
 
 {% block title %}Hello ProgramController!{% endblock %}
 
@@ -13,10 +12,9 @@
 {{ form_row(form.name) }}
 {{ form_row(form.description) }}
 <div id="datepicker">
-   {{ form_row(form.createdAt) }}
+   {{ form_row(form.created_at) }}
 </div>
-{{ form_row(form.journeyOfReservation) }}
-{{ form_row(form.band) }}
+{{ form_row(form.journey_of_reservation) }}
 {{ form_row(form.submit) }}
 {{ form_end(form) }}
 

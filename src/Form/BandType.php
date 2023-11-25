@@ -9,8 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request; 
-use Symfony\Component\HttpFoundation\Response;
+
 
 
 class BandType extends AbstractType
@@ -24,25 +23,25 @@ class BandType extends AbstractType
                 ]
                 ])
 
-            ->add('musicalStyle', TextType::class, [
-                'attr' => [
-                   'class' => 'form-control'
-                ]
-            ])
+            // ->add('musicalStyle', TextType::class, [
+            //     'attr' => [
+            //        'class' => 'form-control'
+            //     ]
+            // ])
 
-            ->add('picture', FileType::class, [
-                'mapped' => false
-
-            ])
+            // ->add('picture', FileType::class, [
+            //     'mapped' => false,
+            //    // 'required' => false
+            // ])
 
                  
 
-            ->add('description', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
+            // ->add('description', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control',
                     
-                ]
-            ])
+            //     ]
+            // ])
 
         
 

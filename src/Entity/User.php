@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Program;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\EntityListener\UserListener;

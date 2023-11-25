@@ -22,7 +22,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band = new Band();
             $band->setName($faker->lastName());
             $band->setMusicalStyle($faker->name());
-            $band->setPicture($faker->imageUrl());
+            $band->setPictureName($faker->imageUrl());
             $band->setDescription($faker->word());
             $band->setUser($this->getReference("user_" . $i));
             $this->addReference('band_'. $i, $band);

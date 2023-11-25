@@ -104,14 +104,14 @@ class Band
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPictureName(): ?string
     {
-        return $this->picture;
+        return $this->pictureName;
     }
 
-    public function setPicture(string $picture): self
+    public function setPictureName(string $pictureName): self
     {
-        $this->picture = $picture;
+        $this->pictureName = $pictureName;
 
         return $this;
     }

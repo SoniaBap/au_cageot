@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Band;
+use App\Entity\User;
 use App\Form\BandType;
 use App\Repository\BandRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,38 +27,44 @@ class BandController extends AbstractController
     public function new(Request $request, BandRepository $bandRepository): Response
     {
         $band = new Band(); 
-        //$user = $this->getUser();
-        //$band->setUser($user);
+        // $user = $this->getUser();
+        // $band->setUser($user);
+        $user = new User();
+        $user->setEmail('milian@gmail.com');
+        $user->setFirstname('Baptista');
+        $user->setLastname('Milian');
+        $band->setUser($user);
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
         //dd($form->getData());
-       // echo('coucou');
               if($form->isSubmitted() && $form->isValid())
               {
+               
                 $picture = $form['picture']->getData();
-
-                // echo('coucou');
+          
                   $form->getData();
+                 
                  // $image = $request->files->get('picture');
                 // $image = $band->getPicture();
-              //  echo ($image);
-                // echo('submitted');
               // Vérifiez si un fichier a été téléchargé
                  if  ($picture instanceof UploadedFile) 
                  {
                     if($picture == null) echo("null");
                     // else echo "pas null";
                  // $uploadsDirectory = $this->getParameter('uploads/photos');
-                 $newFileName = 'Tadaronne.jpg';
-                //    echo($newFileName) ;
+                 $newFileName =  md5(uniqid()).'jpg';
                   // Déplacez le fichier vers le répertoire de stockage
                   
                   $picture->move(
                   'uploads/photos',
-                  'photos.jpg'
+                  $newFileName  
                   );    
-                  $band->setPicture($newFileName);
 
+                $band->setPictureName($newFileName);
+               // $band->setUser(12);
+              // dd('pipi');
+              $bandRepository->save($band, true);
+                  dd('caca');
                 }
 
 
@@ -92,7 +99,8 @@ class BandController extends AbstractController
         $form->handleRequest($request);
           if($form->isSubmitted() && $form->isValid())
           {
-              $form->getData();
+           //  $picture = $form['picture']->getData();
+            // dd($form['picture']->getData());
               $bandRepository->save($band, true);
                return $this->redirectToRoute('app_band_index'); 
           }
