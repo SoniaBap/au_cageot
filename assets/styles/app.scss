@@ -1,74 +1,12 @@
+// Library.
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
+// Base.
+@import 'assets/styles/base/base.scss';
 
+// Component.
+@import 'assets/styles/component/header/navbar.scss';
 
-
-
-@import 'assets/styles/navbar.scss';
-
-body {
-  background-color: rgb(252, 246, 246);
-}
-
-
-#home {
-  background-image: url("/assets/images/home.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-  width: 100%;
-  //max-height: 200%;
-  height: 900px;
-}
-
-.fleche {
-
-  text-align: center;
-  margin-left: 70%;
-  margin-top: 30%;
-}
-
-// .concert_image
-// {
-
-//   background-repeat: no-repeat;
-
-// }
-/*
-#home_accueil {
-      //  background-image: url("/assets/images/concert.jpg");
-     text-align: right;
-     margin-top: 3%;
-     height:50%
-}
-
- .form-group{
-
-   margin-top: 20% ;
-   
- }
-
- .caca {
-
-  justify-content: center;
- }
-
- form {
-  justify-content: center;
-
- }
-
- .mb-3 {
-
-  color: aquamarine;
-  justify-content: center;
- }
-
- #imput-band{
-  justify-content: center;
-  height: 50px;
-  width: 300px;
-  font-size: 3.5em;
-
- }
- */
+// Page.
+@import 'assets/styles/page/login.scss';
+@import 'assets/styles/page/home.scss';

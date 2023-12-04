@@ -14,11 +14,11 @@
 {% endif  %}
 
  {% for program in programs %}
-        <li>{{ program.city }}</li>
          <li>{{ program.name }}</li>
           <li>{{ program.description }}</li>
             <li>{{ program.createdAt|date("m/d/Y")}}</li>
-              <li>{{ program.journeyOfReservation|date('Y-m-d') }}</li>
+              <li>{{ program.city }}</li>
+                <li>{{ program.journeyOfReservation|date('Y-m-d') }}</li>
 
           
           

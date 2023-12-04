@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
-#[Route('/security', name: 'app_security_')]
+// #[Route('/security', name: 'app_security_')]
 
 class SecurityController extends AbstractController
 {
@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('security/login.html.twig', [
+        return $this->render('page/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
         // nothing to put inside because symfony do that 
     }
 
-    #[Route('/registration', name: 'registration')]
+    #[Route('/register', name: 'register')]
     public function registration(Request $request, UserRepository $userRepository)  
     {
         $user = new User();
@@ -44,9 +44,9 @@ class SecurityController extends AbstractController
         {
             $form->getData();
             $userRepository->save($user, true);
-            return $this->redirectToRoute('app_security_login');
+            return $this->redirectToRoute('login');
         }
-        return $this->render('security/registration.html.twig',[
+        return $this->render('page/register.html.twig',[
             'form'=> $form->createView()
         ]);
     }

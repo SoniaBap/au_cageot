@@ -1,0 +1,18 @@
+{% block footer %}
+  <footer>
+    <div class="footer-menu">
+      <a class="" href="{{ path ('aboutUs') }}">{{ 'About Us'|trans }}</a>
+      <a class="" href="{{ path ('termsAndConditions') }}">{{ 'Terms and conditions'|trans }}</a>
+    </div>
+    <div class="social-networks-menu">
+      <ul>
+        <li>
+          <a class="" href=""></a>
+        </li>
+      </ul>
+    </div>
+    <div class='copyright'>
+      <p>{{ '&copy;' }}{{ 'All right Reversed to'|trans }}{{ ' Crate Bar' }}</p>
+    </div>
+  </footer>
+{% endblock %}

@@ -22,7 +22,16 @@
     </head>
     <body>
     
-        {% block body %}
-        {% endblock %}
+        {{ include ('component/navbar.html.twig')}}
+        {#
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        #}
+        <section class="container-fluid page-content">
+            {% block body %}
+            {% endblock %}
+        </section>
+        {{ include ('component/footer.html.twig')}}
     </body>
 </html>
