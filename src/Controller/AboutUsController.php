@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AboutUsController extends AbstractController
 {
-    #[Route('/about-us', name: 'aboutUs')]
-    public function aboutUs(): Response
-    {
-        return $this->render('page/about-us.html.twig', [
-            'controller_name' => 'AboutUsController'
-        ]);
-    }
+  #[Route('/about-us', name: 'aboutUs')]
+  public function aboutUs(): Response
+  {
+    return $this->render('page/about-us.html.twig', [
+      'controller_name' => 'AboutUsController'
+    ]);
+  }
 }

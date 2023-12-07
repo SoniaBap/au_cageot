@@ -13,56 +13,53 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            
-            ->add('firstname', TextType::class, [
-                'attr' => [
-                'class' => 'form-control'
-                ],
-                'label' => 'Prénom',
-                'label_attr' => [
-                ],
-            ])
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
 
-            ->add('lastname', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Nom',
-              'label_attr' => [
+      ->add('firstname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Prénom',
+        'label_attr' => [],
+      ])
 
-              ],
-            ])
+      ->add('lastname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Nom',
+        'label_attr' => [],
+      ])
 
-            ->add('nickname', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Pseudo (facultatif)',
-                'label_attr' => [
-                    'class' => 'form_label'
-                ]
-            ])
+      ->add('nickname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Pseudo (facultatif)',
+        'label_attr' => [
+          'class' => 'form_label'
+        ]
+      ])
 
-            ->add('plainPassword', PasswordType::class, [
-                    'attr' => [
-                        'class' => 'form-control'      
-                    ],
-                    ])
+      ->add('plainPassword', PasswordType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+      ])
 
-            ->add('submit', SubmitType::class, [
-                'attr' =>  [
-                'class' =>   'btn btn-primary'
-                ]
-            ]);
-    }
+      ->add('submit', SubmitType::class, [
+        'attr' =>  [
+          'class' =>   'btn btn-primary'
+        ]
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      'data_class' => User::class,
+    ]);
+  }
 }

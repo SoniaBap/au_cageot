@@ -14,39 +14,39 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProgramType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('city', TextType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
+      ->add('city', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ]
+      ])
 
-            ->add('journey_of_reservation', TextType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+      ->add('journey_of_reservation', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ]
+      ])
 
-            ->add('name', TextType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+      ->add('name', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ]
+      ])
 
-            ->add('description', TextType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+      ->add('description', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ]
+      ])
 
-            ->add('created_at', DateType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                 ]  
-            ])
-/*
+      ->add('created_at', DateType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ]
+      ])
+      /*
             ->add('band', EntityType::class,[
                  'class' => Band::class,
                 //  'attr' => [
@@ -55,25 +55,25 @@ class ProgramType extends AbstractType
                  ])
                  */
 
-        //     ->add('user', EntityType::class,[
-        //          'type' => User::class,
-        //          'attr' => [
-        //             'class' => 'form-control'
-        //         ]
-        //    ])
+      //     ->add('user', EntityType::class,[
+      //          'type' => User::class,
+      //          'attr' => [
+      //             'class' => 'form-control'
+      //         ]
+      //    ])
 
-            ->add('submit', SubmitType::class,[
-                 'attr' => [
-                    'class' => 'btn btn-primary'
-                 ]
-            ]);
-    }
+      ->add('submit', SubmitType::class, [
+        'attr' => [
+          'class' => 'btn btn-primary'
+        ]
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Program::class,
-            
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      'data_class' => Program::class,
+
+    ]);
+  }
 }

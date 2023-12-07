@@ -15,78 +15,74 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Adresse email',
-                'label_attr' => [
-                'class' => 'form-label'
-                ],
-            ])
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
+      ->add('email', EmailType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Adresse email',
+        'label_attr' => [
+          'class' => 'form-label'
+        ],
+      ])
 
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                
-                'first_options' =>  [
-                    'attr' => [
-                    'class' => 'form-control'
-                    ],
-                'label' => 'Mot de passe',
-                ],
-                 'second_options' => [ 
-                    'attr' => [
-                    'class' => 'form-control'
-                    ],
-                'label' => 'Confirmation du mot de passe',
-                 ],
-                'invalid_message' => 'Les mots de passe ne sont pas identiques'
-            ])
+      ->add('plainPassword', RepeatedType::class, [
+        'type' => PasswordType::class,
 
-            ->add('firstname', TextType::class, [
-                'attr' => [
-                'class' => 'form-control'
-                ],
-                'label' => 'Prénom',
-                'label_attr' => [
-                ],
-            ])
+        'first_options' =>  [
+          'attr' => [
+            'class' => 'form-control'
+          ],
+          'label' => 'Mot de passe',
+        ],
+        'second_options' => [
+          'attr' => [
+            'class' => 'form-control'
+          ],
+          'label' => 'Confirmation du mot de passe',
+        ],
+        'invalid_message' => 'Les mots de passe ne sont pas identiques'
+      ])
 
-            ->add('lastname', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Nom',
-              'label_attr' => [
+      ->add('firstname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Prénom',
+        'label_attr' => [],
+      ])
 
-              ],
-            ])
+      ->add('lastname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Nom',
+        'label_attr' => [],
+      ])
 
-            ->add('nickname', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Pseudo (facultatif)',
-                'label_attr' => [
-                    'class' => 'form_label'
-                ]
-            ])
+      ->add('nickname', TextType::class, [
+        'attr' => [
+          'class' => 'form-control'
+        ],
+        'label' => 'Pseudo (facultatif)',
+        'label_attr' => [
+          'class' => 'form_label'
+        ]
+      ])
 
-            ->add('submit', SubmitType::class, [
-                'attr' =>  [
-                'class' =>   'btn btn-primary'
-                ]
-            ]);
-        ;
-    }
+      ->add('submit', SubmitType::class, [
+        'attr' =>  [
+          'class' =>   'btn btn-primary'
+        ]
+      ]);;
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      'data_class' => User::class,
+    ]);
+  }
 }

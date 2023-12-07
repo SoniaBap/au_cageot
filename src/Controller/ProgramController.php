@@ -15,10 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/program', name: 'app_program_')]
 class ProgramController extends AbstractController
 {
-		#[Route('/', name: 'index')]
+	#[Route('/', name: 'list')]
 	public function index(ProgramRepository $programRepository): Response
 	{
-		return $this->render('program/index.html.twig', [
+		return $this->render('page/program/list.html.twig', [
 			'programs' => $programRepository->findAll()
 		]);
 	}
@@ -33,12 +33,12 @@ class ProgramController extends AbstractController
 		$program->setUser($user);
 		$form = $this->createForm(ProgramType::class, $program);
 		$form->handleRequest($request);
-				// if($form->isSubmitted() && $form->isValid())
-				// {
-				//     $form->getData();
-				//     $programRepository->save($program, true);
-				//     return $this->redirectToRoute('app_program_index');
-				// }
+		// if($form->isSubmitted() && $form->isValid())
+		// {
+		//     $form->getData();
+		//     $programRepository->save($program, true);
+		//     return $this->redirectToRoute('app_program_index');
+		// }
 
 		return $this->render('program/new.html.twig', [
 			'form' => $form->createView(),
@@ -52,8 +52,7 @@ class ProgramController extends AbstractController
 		$program->setUser($user);
 		$form = $this->createForm(ProgramType::class, $program);
 		$form->handleRequest($request);
-		if($form->isSubmitted() && $form->isValid())
-		{
+		if ($form->isSubmitted() && $form->isValid()) {
 			$form->getData();
 			$programRepository->save($program, true);
 			return $this->redirectToRoute('app_program_index');

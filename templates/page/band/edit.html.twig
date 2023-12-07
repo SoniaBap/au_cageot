@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BandController!{% endblock %}
+
+{% block body %}
+
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.musicalStyle) }}
+  {{ form_row(form.picture) }}
+  {{ form_row(form.description) }}
+  {{ form_row(form.submit) }}
+  {{ form_end(form) }}
+
+{% endblock %}
