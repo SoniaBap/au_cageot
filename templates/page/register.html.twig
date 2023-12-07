@@ -3,14 +3,14 @@
 {% block title %}{{ 'register'|trans }}{% endblock %}
 
 {% block body %}
-  <div id='register-page'>
-    {{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.nickname) }}
-    {{ form_row(form.submit) }}
-    {{ form_end(form) }} 
-  </div>
+	<div id='register-page'>
+		{{ form_start(form) }}
+		{{ form_row(form.email) }}
+		{{ form_row(form.plainPassword) }}
+		{{ form_row(form.firstname) }}
+		{{ form_row(form.lastname) }}
+		{{ form_row(form.nickname) }}
+		{{ form_row(form.submit) }}
+		{{ form_end(form) }}
+	</div>
 {% endblock %}

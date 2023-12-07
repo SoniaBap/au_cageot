@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Irish+Grover+display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://bootswatch.com/solar/">     <!--  bootswatch theme CSS link   -->  
-        <link rel="stylesheet" href="{{ asset('styles/app.scss') }}" type="text/css" />
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Irish+Grover+display=swap" rel="stylesheet">
+		<link
+		rel="stylesheet" href="https://bootswatch.com/solar/">
+		<!--  bootswatch theme CSS link   -->
+		<link rel="stylesheet" href="{{ asset('styles/app.scss') }}" type="text/css"/>
 
 
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    
-        {{ include ('component/navbar.html.twig')}}
-        {#
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        #}
-        <section class="container-fluid page-content">
-            {% block body %}
-            {% endblock %}
-        </section>
-        {{ include ('component/footer.html.twig')}}
-    </body>
-</html>
+		{{ include ('component/navbar.html.twig')}}
+		{#
+				        {% if error %}
+				            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				        {% endif %}
+				        #}
+		<section class="container-fluid page-content"> {% block body %}{% endblock %}
+			</section>
+			{{ include ('component/footer.html.twig')}}
+		</body>
+	</html>

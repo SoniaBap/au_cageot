@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProgramController!{% endblock %}
+{% block title %}{{ 'Edit Program Page'|trans }}{% endblock %}
 
 {% block body %}
-
-{{ form_start(form) }}
-{{ form_row(form.city) }}
-{{ form_row(form.name) }}
-{{ form_row(form.description) }}
-{{ form_row(form.createdAt) }}
-{{ form_row(form.journeyOfReservation) }}
-{{ form_row(form.band) }}
-{{ form_row(form.submit) }}
-{{ form_end(form) }}
+  <div id="edit-program-page">
+    {{ form_start(form) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.createdAt) }}
+    {{ form_row(form.journeyOfReservation) }}
+    {{ form_row(form.band) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+  </div>
 {% endblock %}
