@@ -2,10 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>
-			{% block title %}Welcome!
-			{% endblock %}
-		</title>
+		<title>{% block title %}{{ 'Base Page'|trans }}{% endblock %}</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,15 +22,15 @@
 		{% endblock %}
 	</head>
 	<body>
-
 		{{ include ('component/navbar.html.twig')}}
 		{#
-				        {% if error %}
-				            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-				        {% endif %}
-				        #}
-		<section class="container-fluid page-content"> {% block body %}{% endblock %}
-			</section>
-			{{ include ('component/footer.html.twig')}}
-		</body>
-	</html>
+			{% if error %}
+				<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
+		#}
+		<section class="container-fluid page-content"> 
+			{% block body %}{% endblock %}
+		</section>
+		{{ include ('component/footer.html.twig')}}</body>
+	</body>
+</html>
