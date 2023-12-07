@@ -1,0 +1,70 @@
+footer {
+
+	ul {
+ 		margin: 0;
+		padding: 0;
+		list-style: none;
+
+
+
+	}
+
+	.footer-menu {
+		display: flex;
+    align-items: center;
+    justify-content: space-beetween;
+    background-color: red;
+
+	 	ul {
+
+  		li {
+
+ 				a {
+
+
+        }
+  		}
+    }
+	}
+
+	.social-networks-menu {
+		display: flex;
+		background-color: green;
+		ul {
+
+			li {
+
+				a {
+
+		 &.icon-link {
+
+	}
+
+
+		 &.footer-link {
+
+					}
+				}
+ 			}
+		}
+	}
+
+
+
+
+	.copyright {
+		display: flex;
+    align-items: center;
+    background-color: yellow;
+    p {
+	    //display: flex;
+	    //text-align: center;
+			//background-color: yellow;
+		}
+	}
+
+}
+
+
+
+

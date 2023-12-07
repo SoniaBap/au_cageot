@@ -5,8 +5,9 @@
 @import 'assets/styles/base/base.scss';
 
 // Component.
-@import 'assets/styles/component/header/navbar.scss';
+@import 'assets/styles/component/navbar.scss';
+@import 'assets/styles/component/footer.scss';
 
 // Page.
-@import 'assets/styles/page/login.scss';
 @import 'assets/styles/page/home.scss';
+@import 'assets/styles/page/login.scss';
