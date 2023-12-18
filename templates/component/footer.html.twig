@@ -2,82 +2,86 @@
 
 	{% set footer = {
 		'site_name': 'Crate Bar',
- 		'footer_main_menu': {
+		'footer_main_menu': {
 			0:{
-		 	 'id': 'about_us',
-			 'href': path("aboutUs"),
- 			 'label': 'About Us'|trans,
+			'id': 'about_us',
+			'href': path("aboutUs"),
+			'label': 'About Us'|trans,
 			},
 			1:{
-			 'id': 'terms_and_conditions',
-			 'href': path("termsAndConditions"),
- 			 'label': 'Terms And Conditions'|trans,
-		  },
-},
+			'id': 'terms_and_conditions',
+			'href': path("termsAndConditions"),
+			'label': 'Terms And Conditions'|trans,
+			},
+		},
 		'social_networks_menu': {
 			0:{
 				'id': 'facebook',
 				'href': 'http://www.facebook.com',
 				'label': 'Facebook'|trans,
-				'icon': 'bi bi-facebook',
+				'icon': 'facebook',
 			},
 			1:{
 				'id': 'twitter',
 				'href': 'https://twitter.com',
 				'label': 'Twitter'|trans,
-				'icon': 'bi bi-twitter-x',
+				'icon': 'twitter-x',
 			},
 			2:{
 				'id': 'instagram',
 				'href': 'https://www.instagram.com',
 				'label': 'Instagram'|trans,
-				'icon': 'bi bi-instagram',
+				'icon': 'instagram',
 			},
 			3:{
 				'id': 'youtube',
 				'href': 'https://www.youtube.com',
 				'label': 'Youtube'|trans,
-				'icon': 'bi bi-youtube',
+				'icon': 'youtube',
 			},
 			4:{
 				'id': 'mail',
 				'href': 'https://www.google.com',
 				'label': 'Email'|trans,
-				'icon': 'bi bi-envelope-at-fill',
+				'icon': 'envelope-at-fill',
 			},
 		},
 
 	} %}
 
-  <footer>
-    <div class="footer-menu">
-      <ul>
-      {% for item in footer.footer_main_menu %}
-			    <li>
-	       <a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
-			{% endfor %}
-				  </li>
-		  </ul>
-    </div>
-    <div class="social-networks-menu">
-      <ul>
-				{% for item in footer.social_networks_menu %}
-	        <li>
-						{% if item.icon is not empty %}
-						  <a class="icon-link" href="" title="{{ item.label }}"><i class="bi bi-facebook"></i></a>
-						  <a class="icon-link" href="" title="{{ item.label }}"><i class="bi bi-twitter-x"></i></a>
-						  <a class="icon-link" href="" title="{{ item.label }}"><i class="bi bi-instagram"></i></a>
-						  <a class="icon-link" href="" title="{{ item.label }}"><i class="bi bi-youtube"></i></a>
-						  <a class="icon-link" href="" title="{{ item.label }}"><i class="bi bi-envelope-at"></i></a>
-						{% else %}
-						  <a class="footer-link" href="" title="{{ item.label }}">{{ item.label }}</a>
-						{% endif %}
-	        </li>
-				{% endfor %}
-      </ul>
-    </div>
-    <div class='copyright'>
-      <p>{{ '&copy;' }}{{ 'All right Reversed to'|trans ~ ' ' ~ footer.site_name }}</p>
-    </div>
-  </footer>
+	<footer>
+		{% if footer.footer_main_menu ?? false %}
+			<div class="footer-menu">
+				<ul>
+					{% for item in footer.footer_main_menu %}
+						<li>
+							<a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		{% if footer.social_networks_menu ?? false %}
+			<div class="social-networks-menu">
+				<ul>
+					{% for item in footer.social_networks_menu %}
+						<li>
+							{% if item.icon ?? false %}
+								<a class="icon-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">
+									<i class="bi bi-{{ item.icon }}"></i>
+								</a>
+							{% else %}
+								<a class="footer-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">{{ item.label }}</a>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<div class='copyright'>
+			<p>{{ '&copy;' }}{{ 'All right Reversed to'|trans ~ ' ' ~ footer.site_name }}</p>
+		</div>
+	</footer>
 {% endblock %}

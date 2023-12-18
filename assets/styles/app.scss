@@ -1,13 +1,14 @@
 // Library.
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 
 // Base.
-@import 'assets/styles/base/base.scss';
+@import "assets/styles/base/base.scss";
 
 // Component.
-@import 'assets/styles/component/navbar.scss';
-@import 'assets/styles/component/footer.scss';
+@import "assets/styles/component/navbar.scss";
+@import "assets/styles/component/footer.scss";
 
 // Page.
-@import 'assets/styles/page/home.scss';
-@import 'assets/styles/page/login.scss';
+@import "assets/styles/page/home.scss";
+@import "assets/styles/page/login.scss";
