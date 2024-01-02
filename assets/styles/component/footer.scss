@@ -1,45 +1,62 @@
 footer {
+  overflow: hidden;
+  background-color: $blue;
+
+  > div {
+    margin: 0.5rem 0;
+  }
+
   ul {
+    /* Reset ul properties.*/
     margin: 0;
     padding: 0;
     list-style-type: none;
+
+    /* Set ul global new properties.*/
     display: flex;
-    width: 100%;
+    gap: 2rem;
+  }
+
+  a {
+    /* Reset a properties.*/
+    text-decoration: none;
+
+    /* Set a global new properties.*/
+    display: inline-block;
+    padding: 0.25rem ;
+    border-radius: 0.125rem;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $white;
+      color: $blue;
+      outline: none;
+    }
+  }
+  .bi:before {
+    vertical-align: 0.125em;
+  }
+
+  a,
+  p {
+    color: $white;
   }
 
   .footer-menu {
-    background-color: rgb(145, 135, 135);
-    padding: 1.5rem 0;
-
-    ul {
-      justify-content: space-around;
-      li {
-        a {
-          color: black;
-          text-decoration: none;
-        }
-      }
-    }
+    display: flex;
+    justify-content: center;
   }
 
   .social-networks-menu {
     display: flex;
-    background-color: green;
-    width: 100%;
     align-items: center;
-    justify-content: space-between;
-    margin: none;
-
+    justify-content: center;
+    /*
     ul {
-      background-color: aqua;
-      flex-direction: column;
-      padding: 1.5rem 0;
-
       li {
-        background-color: black;
         a {
           &.icon-link {
-            background-color: aliceblue;
           }
 
           &.footer-link {
@@ -47,13 +64,12 @@ footer {
         }
       }
     }
+    */
   }
   .copyright {
     display: flex;
     width: 100%;
     justify-content: center;
-    padding: 1.5rem 0;
-    background-color: yellow;
     p {
       margin: 0;
     }
