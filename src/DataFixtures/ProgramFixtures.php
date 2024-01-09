@@ -8,7 +8,6 @@ use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Carbon\Carbon;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -24,17 +23,19 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setDescription($faker->word());
             $program->setCreatedAt(new \DateTimeImmutable("NOW"));
             $program->setJourneyOfReservation(new \DateTime("NOW"));
-            $program->setUserId($this->getReference("user_" . rand(0, UserFixtures::NB_USER - 1)));
+            $program->setUser($this->getReference("user_" . rand(0, UserFixtures::NB_USER - 1)));
+            $program->setBand($this->getReference("band_" . $i));
             $manager->persist($program);
-
         }
-       
             $manager->flush();
     }
+
     public function getDependencies()
     {
         return [
             UserFixtures::class,
+            BandFixtures::class
         ];
+
     }
 }

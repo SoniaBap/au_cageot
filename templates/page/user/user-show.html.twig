@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'Show User Page'|trans }}{% endblock %}
+{% block head %}{% endblock  %}
+
+{% block body %}
+  <div id='show-user-page'>
+	  {% if not programs %}
+		  <h1>Vous devez d'abord créer un groupe pour accéder aux programmes
+			  <a href="{{ path ('app_band_new') }}">veuillez suivre ce lien</a>
+		  	  Si le groupe est déja crée
+			  <a href="{{ path ('app_program_new') }}">veuillez suivre ce lien.</a>
+		  </h1>
+	  {% endif  %}
+	{% for program in programs %}
+		<li>{{ program.name }}</li>
+		<li>{{ program.description }}</li>
+		<li>{{ program.createdAt|date("m/d/Y")}}</li>
+		<li>{{ program.city }}</li>
+		<li>{{ program.journeyOfReservation|date('Y-m-d') }}</li>
+	{% endfor  %}
+  </div>
+{% endblock  %}

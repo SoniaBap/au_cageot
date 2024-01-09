@@ -2,12 +2,12 @@
 
 namespace App\DataFixtures;
 
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 use App\Entity\Band;
 use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -17,24 +17,28 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
         
          $faker = Factory::create();
 
-         for($i = 0; $i <= self::NB_BAND; $i++)
-         {
+        for($i = 0; $i <= self::NB_BAND; $i++)
+        {
             $band = new Band();
             $band->setName($faker->lastName());
             $band->setMusicalStyle($faker->name());
-            $band->setPicture($faker->imageUrl());
+            $band->setPictureName($faker->imageUrl());
             $band->setDescription($faker->word());
-            $band->setUserId($this->getReference("user_" . $i));
+            $band->setUser($this->getReference("user_" . $i));
+            $this->addReference('band_'. $i, $band);
             $manager->persist($band);
-         }
+
+        }
          $manager->flush();
+
     }
 
-     public function getDependencies()
+    public function getDependencies()
     {
         return [
             UserFixtures::class,
         ];
+
     }
 
 }

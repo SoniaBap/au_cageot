@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\EntityListener\UserListener;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,188 +14,164 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\EntityListeners([UserListener::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: 'integer')]
+  private ?int $id;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
+  //  #[Assert\NotBlank(message: 'Email obligatoire')]
+  // #[Assert\Email(message: "Votre email {{ value }} n'est pas valide.")]
+  private ?string $email;
 
-    #[ORM\Column]
-    private array $roles = [];
+  #[ORM\Column(type: 'json')]
+  private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = "password";
+  /**
+   * @var string The hashed password
+   */
+  #[ORM\Column(type: 'string', length: 255)]
+  // #[Assert\NotBlank(message: 'Mot de passe obligatoire')]
+  // #[UserPassword(message: "Votre mot de passe n'est pas valide.")]
+  private ?string $password;
+  private ?string $plainPassword = null;
 
-    private ?string $plainPassword = null;
+  #[ORM\Column(type: 'string', length: 255)]
+  // #[Assert\NotBlank(message: 'Prénom obligatoire')]
+  // #[Assert\Length(min: 3, max: 255,
+  // maxMessage: "Le prénom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+  // minMessage: "Le prénom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+  // )]
+  private ?string $firstname;
 
-    #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
+  #[ORM\Column(type: 'string', length: 255)]
+  // #[Assert\NotBlank(message: 'Nom obligatoire')]
+  // #[Assert\Length(min: 3 , max: 255, 
+  // maxMessage: "Le nom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+  // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+  // )]
+  private ?string $lastname;
 
-    #[ORM\Column(length: 255)]
-    private ?string $lastname = null;
+  #[ORM\Column(type: 'string', length: 255, nullable: true)]
+  // #[Assert\Length(min: 3 , max: 255,
+  // maxMessage: "Le pseudo saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
+  // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
+  // )]
+  private ?string $nickname;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nickname = null;
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Program::class, orphanRemoval: true)]
-    private Collection $programs;
+  public function getEmail(): ?string
+  {
+    return $this->email;
+  }
 
-    public function __construct()
-    {
-        $this->programs = new ArrayCollection();
-    }
+  public function setEmail(string $email): static
+  {
+    $this->email = $email;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    return $this;
+  }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+  /**
+   * A visual identifier that represents this user.
+   *
+   * @see UserInterface
+   */
+  public function getUserIdentifier(): string
+  {
+    return (string) $this->email;
+  }
 
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
+  /**
+   * @see UserInterface
+   */
+  public function getRoles(): array
+  {
+    $roles = $this->roles;
+    // guarantee every user at least has ROLE_USER
+    $roles[] = 'ROLE_USER';
 
-        return $this;
-    }
+    return array_unique($roles);
+  }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
+  public function setRoles(array $roles): static
+  {
+    $this->roles = $roles;
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+    return $this;
+  }
 
-        return array_unique($roles);
-    }
+  /**
+   * @see PasswordAuthenticatedUserInterface
+   */
+  public function getPassword(): string
+  {
+    return $this->password;
+  }
 
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
+  public function setPassword(string $password): static
+  {
+    $this->password = $password;
 
-        return $this;
-    }
+    return $this;
+  }
+  public function getPlainPassword(): string
+  {
+    return $this->plainPassword;
+  }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
+  public function setPlainPassword(string $plainPassword): self
+  {
+    $this->plainPassword = $plainPassword;
 
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
+    return $this;
+  }
 
-        return $this;
-    }
+  public function getFirstname(): ?string
+  {
+    return $this->firstname;
+  }
 
-    public function getPlainPassword(): string
-    {
-        return $this->plainPassword;
-    }
+  public function setFirstname(string $firstname): static
+  {
+    $this->firstname = $firstname;
 
-    public function setPlainPassword(string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
+    return $this;
+  }
 
-        return $this;
+  public function getLastname(): ?string
+  {
+    return $this->lastname;
+  }
 
-    }
+  public function setLastname(string $lastname): static
+  {
+    $this->lastname = $lastname;
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
+    return $this;
+  }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
+  public function getNickname(): ?string
+  {
+    return $this->nickname;
+  }
 
-    public function setFirstname(string $firstname): static
-    {
-        $this->firstname = $firstname;
+  public function setNickname(?string $nickname): static
+  {
+    $this->nickname = $nickname;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): static
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getNickname(): ?string
-    {
-        return $this->nickname;
-    }
-
-    public function setNickname(?string $nickname): static
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Program>
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    public function addProgram(Program $program): static
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgram(Program $program): static
-    {
-        if ($this->programs->removeElement($program)) {
-            // set the owning side to null (unless already changed)
-            if ($program->getUserId() === $this) {
-                $program->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
+  /**
+   * @see UserInterface
+   */
+  public function eraseCredentials(): void
+  {
+    //$this->plainPassword = null;
+  }
 }

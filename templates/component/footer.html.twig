@@ -1,0 +1,55 @@
+{% block footer %}
+
+	{% set footerr = {
+		'footer_main_menu': {
+			0:{
+			'id': 'about_us',
+			'href': path("aboutUs"),
+			'label': 'About Us'|trans,
+			},
+			1:{
+			'id': 'terms_and_conditions',
+			'href': path("termsAndConditions"),
+			'label': 'Terms And Conditions'|trans,
+			},
+		},
+	} %}
+
+	<footer>
+		{% if footerr.footer_main_menu is defined and footerr.footer_main_menu is not empty %}
+			<div class="footer-menu">
+				<ul>
+					{% for item in footerr.footer_main_menu %}
+						<li>
+							<a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		{% if footer.social_networks_menu is defined and footer.social_networks_menu is not empty %}
+			<div class="social-networks-menu">
+				<ul>
+					{% for item in footer.social_networks_menu %}
+						<li>
+							{% if item.icon is defined and item.icon is not empty %}
+								<a class="icon-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">
+									<i class="bi bi-{{ item.icon }}"></i>
+								</a>
+							{% else %}
+								<a class="footer-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">{{ item.label }}</a>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		{% if footer.copyright is defined and footer.copyright is not empty %}
+			<div class='copyright'>
+				<p>&copy;
+					{{ footer.copyright }}</p>
+			</div>
+		{% endif %}
+	</footer>
+{% endblock %}

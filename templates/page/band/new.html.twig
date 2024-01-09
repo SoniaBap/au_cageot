@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'New Band Page'|trans }}{% endblock %}
+{# this tag only applies to the forms defined in this template #}
+
+{% block body %}
+  <div id="new-band-page">
+    <div class="band-form container-sm">
+      {{ form_start(form) }}
+      {{ form_row(form.name,{'attr': {'class': 'form-control'}}) }}
+      {{ form_row(form.musicalStyle,{'attr': {'class': 'form-control'}}) }}
+      {{ form_row(form.picture,{'attr': {'class': 'form-control'}}) }}
+      {{ form_row(form.description,{'attr': {'class': 'form-control', 'rows': 5}}) }}
+      {{ form_row(form.submit) }}
+     {{ form_end(form) }}
+    </div>
+  </div>
+{% endblock %}
