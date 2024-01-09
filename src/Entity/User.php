@@ -2,16 +2,12 @@
 
 namespace App\Entity;
 
-use App\Entity\Program;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
 use App\EntityListener\UserListener;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity("email")]
@@ -20,68 +16,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
   #[ORM\Id]
   #[ORM\GeneratedValue]
-  #[ORM\Column]
-
-
+  #[ORM\Column(type: 'integer')]
   private ?int $id;
 
-  #[ORM\Column(length: 180, unique: true)]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   //  #[Assert\NotBlank(message: 'Email obligatoire')]
   // #[Assert\Email(message: "Votre email {{ value }} n'est pas valide.")]
-  private ?string $email = null;
+  private ?string $email;
 
-
-  #[ORM\Column]
+  #[ORM\Column(type: 'json')]
   private array $roles = [];
 
   /**
    * @var string The hashed password
    */
-  #[ORM\Column]
+  #[ORM\Column(type: 'string', length: 255)]
   // #[Assert\NotBlank(message: 'Mot de passe obligatoire')]
   // #[UserPassword(message: "Votre mot de passe n'est pas valide.")]
-  private ?string $password = "password";
-
-
+  private ?string $password;
   private ?string $plainPassword = null;
 
-
-
-  #[ORM\Column(length: 255)]
+  #[ORM\Column(type: 'string', length: 255)]
   // #[Assert\NotBlank(message: 'Prénom obligatoire')]
   // #[Assert\Length(min: 3, max: 255,
   // maxMessage: "Le prénom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
   // minMessage: "Le prénom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
   // )]
-  private ?string $firstname = null;
+  private ?string $firstname;
 
-
-
-  #[ORM\Column(length: 255)]
+  #[ORM\Column(type: 'string', length: 255)]
   // #[Assert\NotBlank(message: 'Nom obligatoire')]
   // #[Assert\Length(min: 3 , max: 255, 
   // maxMessage: "Le nom saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
   // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
   // )]
-  private ?string $lastname = null;
+  private ?string $lastname;
 
-
-  #[ORM\Column(length: 255, nullable: true)]
+  #[ORM\Column(type: 'string', length: 255, nullable: true)]
   // #[Assert\Length(min: 3 , max: 255,
   // maxMessage: "Le pseudo saisi n'est pas valide, il ne doit pas dépasser {{ limit }} caractères",
   // minMessage: "Le nom saisi n'est pas valide, il ne doit pas être pas être inférieur à {{ limit }} caractères    "
   // )]
-  private ?string $nickname = null;
-
-
-
-  #[ORM\OneToMany(mappedBy: 'user', targetEntity: Program::class, orphanRemoval: true)]
-  private Collection $program;
-
-  public function __construct()
-  {
-    $this->program = new ArrayCollection();
-  }
+  private ?string $nickname;
 
   public function getId(): ?int
   {
@@ -143,8 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     return $this;
   }
-
-  public function getPlainPassword(): ?string
+  public function getPlainPassword(): string
   {
     return $this->plainPassword;
   }
@@ -154,15 +129,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     $this->plainPassword = $plainPassword;
 
     return $this;
-  }
-
-  /**
-   * @see UserInterface
-   */
-  public function eraseCredentials(): void
-  {
-    // If you store any temporary, sensitive data on the user, clear it here
-    // $this->plainPassword = null;
   }
 
   public function getFirstname(): ?string
@@ -202,40 +168,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   }
 
   /**
-   * @return Collection<int, Program>
+   * @see UserInterface
    */
-  public function getPrograms(): Collection
+  public function eraseCredentials(): void
   {
-    return $this->program;
-  }
-
-  public function addProgram(Program $program): static
-  {
-    if (!$this->program->contains($program)) {
-      $this->program->add($program);
-      $program->setUser($this);
-    }
-
-    return $this;
-  }
-
-  public function removeProgram(Program $program): static
-  {
-    if ($this->program->removeElement($program)) {
-      // set the owning side to null (unless already changed)
-      if ($program->getUser() === $this) {
-        $program->setUser(null);
-      }
-    }
-
-    return $this;
-  }
-
-  /**
-   * @return Collection<int, Program>
-   */
-  public function getProgram(): Collection
-  {
-    return $this->program;
+    //$this->plainPassword = null;
   }
 }

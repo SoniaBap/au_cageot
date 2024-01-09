@@ -1,7 +1,7 @@
 <nav class='navbar navbar-expand-sm'>
   <div class='navbar-container container-fluid'>
 
-    <a class='navbar-brand' href='/'>
+    <a class='navbar-brand' href='{{ path ('app_home') }}'>
       <img src='{{ asset('build/images/logo.png') }}' alt='Logo'  width='50' height='50'>
     </a>
 
@@ -20,7 +20,7 @@
         </ul>
         {% if true %}
           {# <a class='navbar-login' href='/login'>{{ 'Login'|trans }}</a> #}
-            <a class='nav-link' href='{{ path ('login') }}'>{{ 'Login'|trans|upper }}</a>
+            <a class='nav-link' href='{{ path ('app_security_login') }}'>{{ 'Login'|trans|upper }}</a>
 
 
         {% else %}

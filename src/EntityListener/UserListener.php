@@ -30,5 +30,14 @@ class UserListener
       return;
     }
     $user->setPassword($this->hasher->hashPassword($user, $user->getPlainPassword()));
+    // Tester ce code quand le hashage du mot de passe marchera à nouveau.
+    /*
+    $plainPassword = $user->getPlainPassword();
+    if ($plainPassword === null) {
+      return;
+    }
+    $password = $this->hasher->hashPassword($user, $plainPassword);
+    $user->setPassword($password);
+    */
   }
 }

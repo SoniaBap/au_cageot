@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Register'|trans }}{% endblock %}
+{% block title %}
+	{{ 'Register'|trans }}
+{% endblock %}
 
 {% block body %}
-		<form id="login-form" class="form" action="{{ path('login') }}" method="post">
-
-	<div id='register-page'>
-
+	<div id='user-register-page'>
 		{{ form_start(form) }}
 		{{ form_row(form.email) }}
 		{{ form_row(form.plainPassword) }}
@@ -15,6 +14,5 @@
 		{{ form_row(form.nickname) }}
 		{{ form_row(form.submit) }}
 		{{ form_end(form) }}
-		</form>
 	</div>
 {% endblock %}

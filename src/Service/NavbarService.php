@@ -2,16 +2,19 @@
 
 namespace App\Service;
 
-class BasicVariablesService {
-    public function getFooterVariables()
+class NavbarService
+{
+    public function getVariables(): array
     {
+
+        
         // Votre logique pour générer le tableau avec différentes variables
-        $result = [
-            'variable1' => 'Valeur 1',
+        $variables = [
+            'is_authenticated' => 'Valeur 1',
             'variable2' => 'Valeur 2',
             // ... d'autres variables ...
         ];
 
-        return $result;
+        return $variables;
     }
 }

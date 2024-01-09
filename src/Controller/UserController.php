@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\UserRegisterType;
 use App\Form\UserPasswordType;
 use App\Repository\BandRepository;
 use App\Repository\UserRepository;
@@ -15,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
-
 #[Route('/user', name: 'app_user_')]
 class UserController extends AbstractController
 {
@@ -25,13 +22,12 @@ class UserController extends AbstractController
   public function show(User $user, ProgramRepository $programRepository, BandRepository $bandRepository): Response
   {
 
-    return $this->render('user/show.html.twig', [
+    return $this->render('page/user/user-show.html.twig', [
       'user' => $user,
       'programs' => $programRepository->findBy(['user' => $user]),
       'bands' => $bandRepository->findBy(['user' => $user])
     ]);
   }
-
 
   #[Route('/edit/{id}', name: 'edit')]
   public function edit(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher): Response
@@ -44,7 +40,7 @@ class UserController extends AbstractController
     if ($this->getUser() !== $user) {
       return $this->redirectToRoute('app_user_edit');
     }
-    $form = $this->createForm(UserType::class, $user);
+    $form = $this->createForm(UserRegisterType::class, $user);
     $form->HandleRequest($request);
 
 
@@ -66,7 +62,7 @@ class UserController extends AbstractController
         );
       }
     }
-    return $this->render('user/edit.html.twig', [
+    return $this->render('page/user/user-edit.html.twig', [
       'form' => $form->createView(),
     ]);
   }
@@ -104,7 +100,7 @@ class UserController extends AbstractController
         );
       }
     }
-    return $this->render('user/edit_password.html.twig', [
+    return $this->render('page/user/user-edit-password.html.twig', [
       'form' => $form->createView(),
     ]);
   }

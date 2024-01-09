@@ -11,10 +11,15 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-
-class RegistrationType extends AbstractType
+class UserRegisterType extends AbstractType
 {
+  private $translator;
+  public function __construct(TranslatorInterface $translator)
+  {
+    $this->translator = $translator;
+  }
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
@@ -22,59 +27,59 @@ class RegistrationType extends AbstractType
         'attr' => [
           'class' => 'form-control'
         ],
-        'label' => 'Adresse email',
+        'required' => TRUE,
+        'label' => $this->translator->trans('Email address'),
         'label_attr' => [
           'class' => 'form-label'
         ],
       ])
-
       ->add('plainPassword', RepeatedType::class, [
         'type' => PasswordType::class,
-
         'first_options' =>  [
           'attr' => [
             'class' => 'form-control'
           ],
-          'label' => 'Mot de passe',
+          'label' => $this->translator->trans('Password'),
+          'required' => TRUE,
         ],
         'second_options' => [
           'attr' => [
             'class' => 'form-control'
           ],
-          'label' => 'Confirmation du mot de passe',
+          'label' => $this->translator->trans('Confirm password'),
+          'required' => TRUE,
         ],
-        'invalid_message' => 'Les mots de passe ne sont pas identiques'
+        'invalid_message' => $this->translator->trans('Passwords are not identical'),
       ])
-
       ->add('firstname', TextType::class, [
         'attr' => [
           'class' => 'form-control'
         ],
-        'label' => 'Prénom',
+        'label' => $this->translator->trans('Firstname'),
         'label_attr' => [],
+        'required' => TRUE,
       ])
-
       ->add('lastname', TextType::class, [
         'attr' => [
           'class' => 'form-control'
         ],
-        'label' => 'Nom',
+        'label' => $this->translator->trans('Lastname'),
         'label_attr' => [],
+        'required' => TRUE,
       ])
-
       ->add('nickname', TextType::class, [
         'attr' => [
           'class' => 'form-control'
         ],
-        'label' => 'Pseudo (facultatif)',
+        'label' => $this->translator->trans('Pseudo (optional)'),
         'label_attr' => [
           'class' => 'form_label'
         ]
       ])
 
       ->add('submit', SubmitType::class, [
-        'attr' =>  [
-          'class' =>   'btn btn-primary'
+        'attr' => [
+          'class' => 'btn btn-primary'
         ]
       ]);;
   }
