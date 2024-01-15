@@ -11,34 +11,29 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_BAND = 50;
-    public function load(ObjectManager $manager): void
-    {
-        
-         $faker = Factory::create();
+  public const NB_BAND = 50;
+  public function load(ObjectManager $manager): void
+  {
 
-        for($i = 0; $i <= self::NB_BAND; $i++)
-        {
-            $band = new Band();
-            $band->setName($faker->lastName());
-            $band->setMusicalStyle($faker->name());
-            $band->setPictureName($faker->imageUrl());
-            $band->setDescription($faker->word());
-            $band->setUser($this->getReference("user_" . $i));
-            $this->addReference('band_'. $i, $band);
-            $manager->persist($band);
+    $faker = Factory::create();
 
-        }
-         $manager->flush();
-
+    for ($i = 0; $i <= self::NB_BAND; $i++) {
+      $band = new Band();
+      $band->setName($faker->lastName());
+      $band->setMusicalStyle($faker->name());
+      $band->setPictureName($faker->imageUrl());
+      $band->setDescription($faker->word());
+      $band->setUser($this->getReference("user_" . $i));
+      $this->addReference('band_' . $i, $band);
+      $manager->persist($band);
     }
+    $manager->flush();
+  }
 
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
-
-    }
-
+  public function getDependencies()
+  {
+    return [
+      UserFixtures::class,
+    ];
+  }
 }
