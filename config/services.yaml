@@ -27,5 +27,9 @@ services:
   App\Service\NavbarService:
 
   App\Service\FooterService:
+    # There's no need to inject dependencies, because autowire is activated.
+    # arguments:
+    #   $translator: '@translator.default'
+    #   $router: '@router'
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones

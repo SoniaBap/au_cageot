@@ -1,25 +1,10 @@
 {% block footer %}
 
-	{% set footerr = {
-		'footer_main_menu': {
-			0:{
-			'id': 'about_us',
-			'href': path("aboutUs"),
-			'label': 'About Us'|trans,
-			},
-			1:{
-			'id': 'terms_and_conditions',
-			'href': path("termsAndConditions"),
-			'label': 'Terms And Conditions'|trans,
-			},
-		},
-	} %}
-
 	<footer>
-		{% if footerr.footer_main_menu is defined and footerr.footer_main_menu is not empty %}
+		{% if footer.footer_main_menu is defined and footer.footer_main_menu is not empty %}
 			<div class="footer-menu">
 				<ul>
-					{% for item in footerr.footer_main_menu %}
+					{% for item in footer.footer_main_menu %}
 						<li>
 							<a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
 						</li>

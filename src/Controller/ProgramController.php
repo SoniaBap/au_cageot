@@ -18,7 +18,7 @@ class ProgramController extends AbstractController
 	#[Route('/', name: 'list')]
 	public function index(ProgramRepository $programRepository): Response
 	{
-		return $this->render('page/program/list.html.twig', [
+		return $this->render('page/program/user-list.html.twig', [
 			'programs' => $programRepository->findAll()
 		]);
 	}
@@ -40,7 +40,7 @@ class ProgramController extends AbstractController
 		//     return $this->redirectToRoute('app_program_index');
 		// }
 
-		return $this->render('page/program/new.html.twig', [
+		return $this->render('page/program/user-new.html.twig', [
 			'form' => $form->createView(),
 		]);
 	}
@@ -57,7 +57,7 @@ class ProgramController extends AbstractController
 			$programRepository->save($program, true);
 			return $this->redirectToRoute('app_program_index');
 		}
-		return $this->render('program/edit.html.twig', [
+		return $this->render('page/program/user-edit.html.twig', [
 			'form' => $form->createView()
 		]);
 	}

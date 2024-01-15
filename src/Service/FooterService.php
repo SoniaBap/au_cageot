@@ -4,18 +4,33 @@ namespace App\Service;
 
 use DateTime;
 use DateTimeZone;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FooterService
 {
     private $translator;
-    public function __construct(TranslatorInterface $translator)
+    private $router;
+    public function __construct(TranslatorInterface $translator, RouterInterface $router)
     {
         $this->translator = $translator;
+        $this->router = $router;
     }
     public function getVariables(): array
     {
-        $footerMainMenu = [];
+        $footerMainMenu = [
+            0 => [
+                'id' => 'about_us',
+                'href' => $this->router->generate('aboutUs'),
+                'label' => $this->translator->trans('About Us'),
+            ],
+            1 => [
+                'id' => 'terms_and_conditions',
+                'href' => $this->router->generate('termsAndConditions'),
+                'label' => $this->translator->trans('Terms And Conditions'),
+            ],
+        ];
+
         $socialNetworksMenu = [
             0 => [
                 'id' => 'facebook',
