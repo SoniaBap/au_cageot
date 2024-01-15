@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Band;
 use App\Entity\Program;
 use App\Form\ProgramType;
-use App\Repository\BandRepository;
 use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +16,7 @@ class ProgramController extends AbstractController
 	#[Route('/', name: 'list')]
 	public function index(ProgramRepository $programRepository): Response
 	{
-		return $this->render('page/program/user-list.html.twig', [
+		return $this->render('page/program/program-list.html.twig', [
 			'programs' => $programRepository->findAll()
 		]);
 	}
@@ -40,7 +38,7 @@ class ProgramController extends AbstractController
 		//     return $this->redirectToRoute('app_program_index');
 		// }
 
-		return $this->render('page/program/user-new.html.twig', [
+		return $this->render('page/program/program-new.html.twig', [
 			'form' => $form->createView(),
 		]);
 	}
@@ -57,7 +55,7 @@ class ProgramController extends AbstractController
 			$programRepository->save($program, true);
 			return $this->redirectToRoute('app_program_index');
 		}
-		return $this->render('page/program/user-edit.html.twig', [
+		return $this->render('page/program/program-edit.html.twig', [
 			'form' => $form->createView()
 		]);
 	}
