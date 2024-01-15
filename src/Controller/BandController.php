@@ -18,7 +18,7 @@ class BandController extends AbstractController
   #[Route('/', name: 'list')]
   public function index(BandRepository $bandRepository): Response
   {
-    return $this->render('page/band/list.html.twig', [
+    return $this->render('page/band/band-list.html.twig', [
       'bands' => $bandRepository->findAll()
     ]);
   }
@@ -70,7 +70,7 @@ class BandController extends AbstractController
 
     //     echo("caca");
     //  }
-    return $this->render('page/band/new.html.twig', [
+    return $this->render('page/band/band-new.html.twig', [
       'form' => $form->createView()
     ]);
   }
@@ -89,7 +89,7 @@ class BandController extends AbstractController
       $bandRepository->save($band, true);
       return $this->redirectToRoute('app_band_index');
     }
-    return $this->render('band/edit.html.twig', [
+    return $this->render('band/band-edit.html.twig', [
       'form' => $form->createView()
     ]);
   }
