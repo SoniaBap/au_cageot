@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Form\ProgramType;
+use App\Service\FooterService;
 use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProgramController extends AbstractController
 {
 	#[Route('/', name: 'list')]
-	public function index(ProgramRepository $programRepository): Response
+	public function index(ProgramRepository $programRepository, FooterService $footerService): Response
 	{
 		return $this->render('page/program/program-list.html.twig', [
-			'programs' => $programRepository->findAll()
+			'programs' => $programRepository->findAll(),
+      'footer' => $footerService->getVariables(),
 		]);
 	}
 
 
 
 	#[Route('/new', name: 'new')]
-	public function new(Request $request): Response
+	public function new(Request $request, FooterService $footerService): Response
 	{
 		$program = new Program();
 		$user = $this->getUser();
@@ -40,11 +42,12 @@ class ProgramController extends AbstractController
 
 		return $this->render('page/program/program-new.html.twig', [
 			'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
 		]);
 	}
 
 	#[Route('/edit/{id}', name: 'edit')]
-	public function edit(Program $program, Request $request, ProgramRepository $programRepository): Response
+	public function edit(Program $program, Request $request, ProgramRepository $programRepository, FooterService $footerService): Response
 	{
 		$user = $this->getUser();
 		$program->setUser($user);
@@ -56,12 +59,13 @@ class ProgramController extends AbstractController
 			return $this->redirectToRoute('app_program_index');
 		}
 		return $this->render('page/program/program-edit.html.twig', [
-			'form' => $form->createView()
+			'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
 		]);
 	}
 
 	#[Route('delete/{id}', name: 'delete')]
-	public function delete(Program $program, ProgramRepository $programRepository)
+	public function delete(Program $program, ProgramRepository $programRepository, FooterService $footerService)
 	{
 		$programRepository->remove($program, true);
 		return $this->redirectToRoute('app_program_delete');
