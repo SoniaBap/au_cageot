@@ -5,9 +5,14 @@
 			<div class="footer-menu">
 				<ul>
 					{% for item in footer.footer_main_menu %}
-						<li>
-							<a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
-						</li>
+						{% if 
+							item.href is defined and item.href is not empty and
+							item.label is defined and item.label is not empty
+						%}
+							<li>
+								<a class="" href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
+							</li>
+						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
@@ -17,15 +22,20 @@
 			<div class="social-networks-menu">
 				<ul>
 					{% for item in footer.social_networks_menu %}
-						<li>
-							{% if item.icon is defined and item.icon is not empty %}
-								<a class="icon-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">
-									<i class="bi bi-{{ item.icon }}"></i>
-								</a>
-							{% else %}
-								<a class="footer-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">{{ item.label }}</a>
-							{% endif %}
-						</li>
+						{% if 
+							item.href is defined and item.href is not empty and
+							item.label is defined and item.label is not empty
+						%}
+							<li>
+								{% if item.icon is defined and item.icon is not empty %}
+									<a class="icon-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">
+										<i class="bi bi-{{ item.icon }}"></i>
+									</a>
+								{% else %}
+									<a class="footer-link" href="{{ item.href }}" target="_blank" title="{{ item.label }}">{{ item.label }}</a>
+								{% endif %}
+							</li>
+						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
