@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Band;
 use App\Entity\User;
 use App\Form\BandType;
+use App\Service\FooterService;
 use App\Repository\BandRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,15 +17,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BandController extends AbstractController
 {
   #[Route('/', name: 'list')]
-  public function index(BandRepository $bandRepository): Response
+  public function index(BandRepository $bandRepository, FooterService $footerService): Response
   {
     return $this->render('page/band/band-list.html.twig', [
-      'bands' => $bandRepository->findAll()
+      'bands' => $bandRepository->findAll(),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 
   #[Route('/new', name: 'new')]
-  public function new(Request $request, BandRepository $bandRepository): Response
+  public function new(Request $request, BandRepository $bandRepository, FooterService $footerService): Response
   {
     $band = new Band();
     // $user = $this->getUser();
@@ -71,13 +73,14 @@ class BandController extends AbstractController
     //     echo("caca");
     //  }
     return $this->render('page/band/band-new.html.twig', [
-      'form' => $form->createView()
+      'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 
 
   #[Route('/edit/{id}', name: 'edit')]
-  public function edit(Band $band, Request $request, BandRepository $bandRepository): Response
+  public function edit(Band $band, Request $request, BandRepository $bandRepository, FooterService $footerService): Response
   {
     $user = $this->getUser();
     $band->setUser($user);
@@ -90,7 +93,8 @@ class BandController extends AbstractController
       return $this->redirectToRoute('app_band_index');
     }
     return $this->render('band/band-edit.html.twig', [
-      'form' => $form->createView()
+      'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserRegisterType;
+use App\Service\FooterService;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,13 +17,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
   #[Route('/login', name: 'app_security_login')]
-  public function login(AuthenticationUtils $authenticationUtils): Response
+  public function login(AuthenticationUtils $authenticationUtils, FooterService $footerService): Response
   {
     $error = $authenticationUtils->getLastAuthenticationError();
     $lastUsername = $authenticationUtils->getLastUsername();
     return $this->render('page/user/user-login.html.twig', [
       'last_username' => $lastUsername,
       'error' => $error,
+      'footer' => $footerService->getVariables(),
     ]);
   }
 
@@ -33,7 +35,7 @@ class SecurityController extends AbstractController
   }
 
   #[Route('/register', name: 'app_security_register')]
-  public function userRegister(Request $request, UserRepository $userRepository)
+  public function userRegister(Request $request, UserRepository $userRepository, FooterService $footerService)
   {
     $user = new User();
     $user->setRoles(['ROLE_USER']);
@@ -48,6 +50,7 @@ class SecurityController extends AbstractController
 
     return $this->render('page/user/user-register.html.twig', [
       'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
       //'form' => $form,
     ]);
   }

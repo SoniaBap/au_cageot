@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserRegisterType;
 use App\Form\UserPasswordType;
+use App\Form\UserRegisterType;
+use App\Service\FooterService;
 use App\Repository\BandRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProgramRepository;
@@ -19,18 +20,19 @@ class UserController extends AbstractController
 {
 
   #[Route('/show/{id}', name: 'show')]
-  public function show(User $user, ProgramRepository $programRepository, BandRepository $bandRepository): Response
+  public function show(User $user, ProgramRepository $programRepository, BandRepository $bandRepository, FooterService $footerService): Response
   {
 
     return $this->render('page/user/user-show.html.twig', [
       'user' => $user,
       'programs' => $programRepository->findBy(['user' => $user]),
-      'bands' => $bandRepository->findBy(['user' => $user])
+      'bands' => $bandRepository->findBy(['user' => $user]),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 
   #[Route('/edit/{id}', name: 'edit')]
-  public function edit(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher): Response
+  public function edit(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher, FooterService $footerService): Response
   {
 
     if (!$this->getUser()) {
@@ -64,12 +66,13 @@ class UserController extends AbstractController
     }
     return $this->render('page/user/user-edit.html.twig', [
       'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 
 
   #[Route('/edit/password/{id}', name: 'edit_password')]
-  public function editPassword(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher): Response
+  public function editPassword(User $user, Request $request, UserRepository $userRepository, UserPasswordHasherInterface $hasher, FooterService $footerService): Response
   {
     if (!$this->getUser()) {
       return $this->redirectToRoute('app_security_login');
@@ -102,6 +105,7 @@ class UserController extends AbstractController
     }
     return $this->render('page/user/user-edit-password.html.twig', [
       'form' => $form->createView(),
+      'footer' => $footerService->getVariables(),
     ]);
   }
 }
